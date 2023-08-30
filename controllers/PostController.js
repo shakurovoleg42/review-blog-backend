@@ -14,7 +14,7 @@ export const getLastTags = async(req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Не удалось получить статьи',
+            message: 'Тэгов нету',
         });
     }
 };
@@ -67,7 +67,7 @@ export const remove = async (req, res) => {
             if (err) {
                 console.log(err);
                     res.status(500).json({
-                        message: 'Не удалось удалить статью',eror: err});
+                        message: 'Не удалось удалить статью',error: err});
             }
         })
         
