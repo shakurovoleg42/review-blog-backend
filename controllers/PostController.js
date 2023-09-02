@@ -1,4 +1,3 @@
-import {ReturnDocument} from 'mongodb';
 import PostModel from "../models/Post.js";
 
 export const getLastTags = async(req, res) => {
@@ -33,26 +32,23 @@ export const getAll = async (req, res) => {
 
 export const getOne = async (req, res) => {
     try {
-        const postId = req.params.id;
-
-        PostModel.findOneAndUpdate({_id: postId}, {$inc: {viewsCount: 1}}, {ReturnDocument: 'after'}).then((doc) => {
-            if(!doc) {
-                return res.status(404).json({message: 'Статья не найдена', error: err})
-            }
-            res.json(doc)
-        }).catch((err) => {
-            if(err) {
-                return res.status(500).json({message: 'Не удалось вернуть статью', error: err})
-            }
-        })
-
+      const postId = req.params.id;
+      const doc = await PostModel.findOneAndUpdate(
+        { _id: postId },
+        { $inc: { viewsCount: 1 } },
+        { ReturnDocument: 'after' }
+      ).populate('user');
+  
+      if (!doc) {
+        return res.status(404).json({ message: 'Статья не найдена', error: err });
+      }
+  
+      res.json(doc);
     } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Не удалось получить статьи'
-        });
+      console.log(err);
+      res.status(500).json({ message: 'Не удалось получить статьи' });
     }
-};
+  };
 
 export const remove = async (req, res) => {
     try {
@@ -84,8 +80,8 @@ export const create = async (req, res) => {
             text: req.body.text,
             imageUrl: req.body.imageUrl,
             user: req.userId,
-            tags: req.body.tags.split(','),
-        }) 
+            tags: req.body.tags, //.split(',')
+        });
 
         const post = await doc.save();
 
