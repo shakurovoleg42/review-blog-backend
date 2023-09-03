@@ -1,18 +1,20 @@
-import express from "express";
-import mongoose from 'mongoose';
+import express from 'express';
+import fs from 'fs';
+import multer from 'multer';
 import cors from 'cors';
-import multer from "multer";
 
-import { registerValidation, loginValidation, postCreateValidation } from "./validations.js";
+import mongoose from 'mongoose';
 
-import { checkAuth, handleValidationErrors } from "./utils/index.js";
-import {UserController, PostController} from "./controllers/index.js";
+import { registerValidation, loginValidation, postCreateValidation } from './validations.js';
 
+import { handleValidationErrors, checkAuth } from './utils/index.js';
+
+import { UserController, PostController } from './controllers/index.js';
 
 mongoose
-.connect(process.env.MONGODB_URI)
-.then(() => console.log('DB OK'))
-.catch((err) => console.log('DB error', err));
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log('DB ok'))
+  .catch((err) => console.log('DB error', err));
 
 const app = express();
 
