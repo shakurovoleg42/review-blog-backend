@@ -1,16 +1,21 @@
 import express from "express";
+import fs from 'fs';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import multer from "multer";
 
-import { registerValidation, loginValidation, postCreateValidation } from "./validations.js";
+import { 
+    registerValidation, 
+    loginValidation, 
+    postCreateValidation 
+} from "./validations.js";
 
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 import {UserController, PostController} from "./controllers/index.js";
 
 
 mongoose
-.connect('mongodb+srv://thor:LzJbOLlhxdJIhZ5E@cluster9.mddwbhr.mongodb.net/twit-blog?retryWrites=true&w=majority')
+.connect(process.env.MONGODB_URI)
 .then(() => console.log('DB OK'))
 .catch((err) => console.log('DB error', err));
 
@@ -78,7 +83,7 @@ app.patch(
 );
 
 
-app.listen(4444, (err) => {
+app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
         return console.log(err);
     }
