@@ -15,9 +15,9 @@ import {UserController, PostController} from "./controllers/index.js";
 
 
 mongoose
-.connect(process.env.MONGODB_URI)
-.then(() => console.log('DB OK'))
-.catch((err) => console.log('DB error', err));
+  .connect('mongodb+srv://thor:LzJbOLlhxdJIhZ5E@cluster9.mddwbhr.mongodb.net/twit-blog?retryWrites=true&w=majority')
+  .then(() => console.log('DB ok'))
+  .catch((err) => console.log('DB error', err));
 
 const app = express();
 

@@ -1,54 +1,54 @@
 import PostModel from "../models/Post.js";
 
-export const getLastTags = async(req, res) => {
+export const getLastTags = async (req, res) => {
     try {
-        const posts = await PostModel.find().limit(5).exec();
-
-        const tags = posts
-        .map(obj => obj.tags)
+      const posts = await PostModel.find().limit(5).exec();
+  
+      const tags = posts
+        .map((obj) => obj.tags)
         .flat()
-        .slice(0, 4);
-
-        res.json(tags);
+        .slice(0, 5);
+  
+      res.json(tags);
     } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Тэгов нету',
-        });
+      console.log(err);
+      res.status(500).json({
+        message: 'Не удалось получить тэги',
+      });
     }
 };
 
 export const getAll = async (req, res) => {
     try {
-        const posts = await PostModel.find().populate('user').exec();
-        res.json(posts);
+      const posts = await PostModel.find().populate('user').exec();
+      res.json(posts);
     } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            message: 'Не удалось получить статьи',
-        });
+      console.log(err);
+      res.status(500).json({
+        message: 'Не удалось получить статьи',
+      });
     }
 };
 
 export const getOne = async (req, res) => {
-    try {
-      const postId = req.params.id;
-      const doc = await PostModel.findOneAndUpdate(
-        { _id: postId },
-        { $inc: { viewsCount: 1 } },
-        { ReturnDocument: 'after' }
-      ).populate('user');
-  
-      if (!doc) {
-        return res.status(404).json({ message: 'Статья не найдена', error: err });
-      }
-  
-      res.json(doc);
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: 'Не удалось получить статью' });
+  try {
+    const postId = req.params.id;
+    const doc = await PostModel.findOneAndUpdate(
+      { _id: postId },
+      { $inc: { viewsCount: 1 } },
+      { ReturnDocument: 'after' }
+    ).populate('user');
+
+    if (!doc) {
+      return res.status(404).json({ message: 'Статья не найдена', error: err });
     }
-  };
+
+    res.json(doc);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: 'Не удалось получить статьи' });
+  }
+};
 
 export const remove = async (req, res) => {
     try {
