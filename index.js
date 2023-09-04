@@ -1,4 +1,6 @@
 import express from "express";
+import dotenv from 'dotenv';
+dotenv.config();
 import fs from 'fs';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -13,7 +15,11 @@ import {
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
 import {UserController, PostController} from "./controllers/index.js";
 
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log('DB ok')).catch((err) => console.log('DB error', err));
+
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log('DB ok'))
+.catch((err) => console.log('DB error', err));
 
 const app = express();
 
