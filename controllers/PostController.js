@@ -46,7 +46,7 @@ export const getOne = async (req, res) => {
       res.json(doc);
     } catch (err) {
       console.log(err);
-      res.status(500).json({ message: 'Не удалось получить статьи' });
+      res.status(500).json({ message: 'Не удалось получить статью' });
     }
   };
 
@@ -69,7 +69,7 @@ export const remove = async (req, res) => {
         
     }   catch (err) {
             console.log(err);
-            res.status(500).json({message: 'Не удалось получить статьи'});
+            res.status(500).json({message: 'Не удалось получить статьии'});
         }
 };
 
