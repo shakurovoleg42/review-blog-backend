@@ -13,8 +13,8 @@ export const registerValidation = [
 ];
 
 export const postCreateValidation = [
-  body('title', 'Ввести заголовок статьи').isLength({min: 2}).isString(),
-  body('text', 'Введите текст статьи').isLength({ min: 3 }).isString(),
+  body('title', 'Ввести заголовок статьи').isLength({min: 4}).isString(),
+  body('text', 'Введите текст статьи').isLength({ min: 4 }).isString(),
   body('tags', 'Неверный формат тэгов').optional().isString(),
   body('imageUrl', 'Неверная ссылка на изображение').optional().isString(),
 ];
