@@ -7,7 +7,7 @@ export const getLastTags = async (req, res) => {
       const tags = posts
         .map((obj) => obj.tags)
         .flat()
-        .slice(0, 10)
+        .slice(0, 19)
         .filter((tag, index, self) => self.indexOf(tag) === index);
   
       res.json(tags);
