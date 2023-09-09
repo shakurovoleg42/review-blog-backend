@@ -9,11 +9,11 @@ import multer from "multer";
 import { 
     registerValidation, 
     loginValidation, 
-    postCreateValidation 
+    postCreateValidation,
 } from "./validations.js";
 
 import { checkAuth, handleValidationErrors } from "./utils/index.js";
-import {UserController, PostController} from "./controllers/index.js";
+import {UserController, PostController, CommentsController} from "./controllers/index.js";
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('DB ok'))
@@ -77,6 +77,7 @@ app.patch(
   handleValidationErrors,
   PostController.update,
 );
+app.post('/comments/:id', checkAuth, handleValidationErrors, CommentsController.createComment);
 
 
 app.listen(process.env.PORT || 4444, (err) => {
