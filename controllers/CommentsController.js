@@ -15,12 +15,12 @@ export const createComment = async (req, res) => {
             await PostModel.findByIdAndUpdate(postId, {
                 $push: { comments: newComment._id },
             })
-        } catch (err) {
-            console.log(err)
+        } catch (error) {
+            console.log(error)
         }
 
         res.json(newComment)
-    } catch (err) {
+    } catch (error) {
         res.json({ message: 'Что-то пошло не так.' })
     }
 }

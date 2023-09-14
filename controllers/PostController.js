@@ -1,4 +1,5 @@
 import PostModel from "../models/Post.js";
+import CommentModel from "../models/Comment.js";
 
 export const getLastTags = async (req, res) => {
     try {
@@ -121,4 +122,18 @@ export const update = async (req, res) => {
             message: 'Не удалось обновить статью'
         });
     }
-}
+};
+
+export const getPostComments = async (req, res) => {
+  try {
+      const post = await PostModel.findById(req.params.id)
+      const list = await Promise.all(
+          post.comments.map((comment) => {
+              return CommentModel.findById(comment)
+          }),
+      )
+      res.json(list)
+  } catch (err) {
+      res.json({ message: 'Что-то пошло не так.' })
+  }
+};
