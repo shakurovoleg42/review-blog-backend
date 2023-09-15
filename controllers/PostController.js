@@ -77,13 +77,14 @@ export const remove = async (req, res) => {
 
 export const create = async (req, res) => {
     try {
-        const doc = new PostModel({
-            title: req.body.title,
-            text: req.body.text,
-            imageUrl: req.body.imageUrl,
-            user: req.userId,
-            tags: req.body.tags.split(','),
-        });
+      const tags = req.body.tags.replace(/#/g, '').split(',');
+      const doc = new PostModel({ 
+      title: req.body.title, 
+      text: req.body.text, 
+      imageUrl: req.body.imageUrl, 
+      user: req.userId, 
+      tags: tags, 
+    });
 
         const post = await doc.save();
 
