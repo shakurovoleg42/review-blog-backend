@@ -36,8 +36,9 @@ export const getOne = async (req, res) => {
     const doc = await PostModel.findOneAndUpdate(
       { _id: postId },
       { $inc: { viewsCount: 1 } },
-      { ReturnDocument: 'after' }
+      { ReturnDocument: 'after' },
     ).populate('user');
+    
 
     if (!doc) {
       return res.status(404).json({ message: 'Статья не найдена', error: err });

@@ -78,7 +78,7 @@ app.patch(
   PostController.update,
 );
 app.post('/comments/:id', checkAuth, handleValidationErrors, CommentsController.createComment);
-app.get('/posts/comments/:id', PostController.getPostComments)
+app.get('/comments/:id', PostController.getPostComments)
 
 app.listen(process.env.PORT || 4444, (err) => {
     if (err) {
